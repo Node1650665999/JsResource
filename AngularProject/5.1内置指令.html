@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="angular.js" type="text/javascript" ></script>
+		<style type="text/css">
+			.even{
+				background: #0000FF;
+			}
+			.odd{
+				background: #F1A2C1;
+			}
+			input.ng-invalid {
+				border: 1px solid red;
+			}
+			input.ng-valid {
+				border: 1px solid green;
+}
+		</style>
+	</head>
+	<body>
+		<!-- 使用 ng-href ，AngularJS会等到插值生效（在例子中是两秒以后）后再执行点击链接的行为 -->
+		<!--<a ng-href="{{ myHref }}">I'm feeling lucky, when I load</a><br />-->
+		<!--<a href="{{ myHref }}">I'm feeling 404</a><br />-->
+		<!--ng-src告诉浏览器在表达式生效之前不要加载图像-->
+		<!--<img src="{{imgSrc}}"/><br />-->
+		<!--<img ng-src="{{imgSrc}}"/>-->
+		<!--ng-include, 可以加载、编译并包含外部HTML片段到当前的应用中-->
+		<!--如果你想使用某个特定的作用域， 例如 ControllerA 的作用域， 必须在同一个DOM元素上添加 ng-controller ="ControllerA"
+指令，这样当模板加载完成后，不会像往常一样从外部作用域继承并创建一个新的子作用域。-->
+		<!--<div ng-include="'5指令.html'" >
+		
+		</div>-->
+		<!--ng-switch 和on="value"一起用-->
+		<!--<input type="text" ng-model="person.name" value="" />
+		<div ng-switch on="person.name">
+			<p ng-switch-default>And the winner is</p>
+			<h1 ng-switch-when="Ari">{{ person.name }}</h1>
+		</div>-->
+		<!--ng-if，使用 ng-if 指令可以完全根据表达式的值在DOM中生成或移除一个元素-->
+		<!--<div ng-if="2+2===5">
+		Hi, I do exist
+		</div>-->
+		<!--ng-repeat-->
+		<!--<div ng-controller="peopleController">
+			<li ng-repeat=" person in people" ng-class="{even: !$even,odd: !$odd}">
+				{{person.name}} live in {{person.city}}
+			</li>
+		</div>-->
+		<!--ng-form-->
+		<!--<form name="signup_form" ng-controller="FormController" ng-submit="submitForm()" novalidate>-->
+			<!--ng-repeat動態創建表單-->
+			<!--<div ng-repeat="field in fields" ng-form="signup_form_input">
+				<input type="text" name="dynamic_input" ng-required="field.isRequired" ng-model="field.name" placeholder="{{field.placeholder}}" />
+				<div ng-show="signup_form_input.dynamic_input.$dirty &&
+						signup_form_input.dynamic_input.$invalid">
+					<span class="error" ng-show="signup_form_input.dynamic_input.$error.required">
+						The field is required.
+					</span>
+				</div>
+			</div>-->
+			<!--不合法就禁用表單提交-->
+			<!--<button type="submit" ng-disabled="signup_form.$invalid">
+				Submit All
+			</button>
+		</form>-->
+		
+		<!--ng-select-->
+		<!--<div ng-controller="CityController">
+			<select ng-model="city" ng-options="city.name for city in cities">
+				<option value="">Choose City</option>
+			</select>
+			Best City: {{ city.name }}
+		</div>-->
+		<!--隔离作用域-->
+		<!--<div ng-init="myProperty='wow,thisiscool'">
+			Surrounding scope: {{ myProperty }}
+			<div my-inherit-scope-directive></div>
+			<div my-directive></div>
+		</div>	-->
+		<!--transclude嵌入-->
+		<!--<div sidebox title="Links">
+			<ul>
+			<li>First link</li>
+			<li>Second link</li>
+			</ul>
+		</div>-->
+		
+		<!--Controller -->
+		<!--<link></link>-->
+		
+		<!--ControllerAs，-->
+		<!--<p my-directive ng-controller="meController"></p>-->
+		<script src="5.1内置指令.js" type="text/javascript" ></script>
+	</body>
+</html>

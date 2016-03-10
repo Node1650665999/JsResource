@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./css/font-awesome.css"/>
+		<style type="text/css">
+			#container{
+				width: 600px;
+				height: 400px;
+				overflow: hidden;
+				position: relative;
+			}
+			#listImg{
+				width: 4200px;
+				 z-index: 1;
+				position: absolute;
+			}
+			#listImg img{
+				float: left;
+			}
+			#item{
+				position: absolute;
+				left: 50%;
+				bottom: 10%;
+				-webkit-transform: translateX(-50%);
+				z-index: 10;
+			}
+			#item span{
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				display: inline-block;
+				background:#CCCCCC;
+				z-index: 2;
+			}
+			.icon-angle-left,.icon-angle-right{
+				width: 30px 50px;
+				color: #CCCCCC;
+				font-size: 80px;
+				display: none;
+				
+				z-index: 3;
+			}
+			i.icon-angle-left{
+				position: absolute;
+				left: 0;
+				top:50%;
+				-webkit-transform: translateY(-50%);
+				
+			}
+			i.icon-angle-right{
+				position: absolute;
+				right: 0;
+				top:50%;
+				-webkit-transform: translateY(-50%);
+			}
+			#container:hover i{
+				display: block;
+				background: rgba(0,0,0,0.4);
+			}
+			#container i:hover{
+				background: rgba(0,0,0,0.9);
+			}
+			#container #item span.current{
+				background: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				//获取图像列表
+				var imgList = document.getElementById("listImg");
+				imgList.style.marginLeft = -600+"px";
+				//获取箭头
+				var rowLeft = document.getElementsByClassName("icon-angle-left")[0];
+				var rowRight = document.getElementsByClassName("icon-angle-right")[0];
+				//获取列表项
+				var item = document.getElementById("item").getElementsByTagName("span");
+					item[0].className = "current";
+				//向右滚动
+				function scrollRight(){
+					  imgList.style.marginLeft = (parseInt(imgList.style.marginLeft)-600)+"px";
+					if(parseInt(imgList.style.marginLeft) < -3000){
+						imgList.style.marginLeft = -600 +"px";
+					}
+					  var index = -(parseInt(imgList.style.marginLeft)/600)-1;
+					if(index < 0){
+						addClass(4);
+					}else{
+						addClass(index);
+					}
+				}
+				function scrollLeft(){
+					imgList.style.marginLeft = (parseInt(imgList.style.marginLeft)+600)+"px";
+					if(parseInt(imgList.style.marginLeft) > -600){
+						imgList.style.marginLeft = -3000 +"px";
+					}
+					var index = -(parseInt(imgList.style.marginLeft)/600)-1;
+					if(index <= 4){
+						addClass(index);
+					}else{
+						addClass(0);
+					}
+						
+					
+				}
+				function addClass(index){
+					item[index].className = "current";
+					for(var i=0; i<item.length;i++){
+						if(i != index){
+							item[i].className = "";
+							
+						}
+					}
+				}
+				rowRight.onclick = scrollRight;
+				rowLeft.onclick = scrollLeft;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="listImg">
+				<img src="./img/5.jpg" alt="" />
+				<img src="./img/1.jpg" alt="" />
+				<img src="./img/2.jpg" alt="" />
+				<img src="./img/3.jpg" alt="" />
+				<img src="./img/4.jpg" alt="" />
+				<img src="./img/5.jpg" alt="" />
+				<img src="./img/1.jpg" alt="" />
+			</div>
+			<i class=" icon-angle-left"></i>
+			<i class=" icon-angle-right"></i>
+			<div id="item">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</body>
+</html>

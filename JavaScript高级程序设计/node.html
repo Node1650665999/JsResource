@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload=function(){
+				//dom对象当前节点的子节点,不包括子孙节点,节点包含空白文本节点
+//				var nodes=document.getElementById("container").childNodes;
+				
+				//dom对象不能调用源生的array对象的方法
+//				console.log(nodes.slice(0));//报错
+				//将dom对象转换为array对象
+//				nodes = Array.prototype.slice.call( nodes,0);
+				//转换为array后原dom对象的属性和方法还可以用
+//				console.log( nodes[0].nodeType);return false;
+				//兼容IE
+			/*	function convertArray(ags){
+					var array=[];
+					try{
+						array=Array.prototype.slice.call(ags,0);
+					}catch(e){
+						//IE
+						for(var i = 0, len=ags.length; i<len; i++){
+							array.push(ags[i]);
+						}
+					}
+					
+					return array;
+				}
+				var eleNode=convertArray(nodes);
+				console.log(eleNode);*/
+				
+				
+				//节点之间的关系
+				//console.log(nodes[0].nextSibling);
+				//创建节点
+//				var element = document.createElement('p');	//元素节点
+//				var text = document.createTextNode("这是一个段落"); //文本节点
+//				//生成元素
+//				element.appendChild(text);
+//				element.setAttribute("class","name");
+//				document.body.appendChild(element);
+//				//將元素的顺序改变，不再是追加
+//				document.body.appendChild(document.body.childNodes[1]);
+
+
+				//节点克隆，深浅克隆
+//				var container = document.getElementById("container");
+//				var conClone=container.cloneNode();//浅克隆，只克隆当前节点
+////				var conClone=container.cloneNode(true);//深克隆，克隆整个子孙节点
+//				document.body.appendChild(conClone);	
+
+
+				//元素的获取,通过name也可以取到值
+//				var list = document.getElementsByTagName("li");
+//				console.log(list["l2"].innerHTML);
+				
+				
+				//插入标记
+//				var container=document.getElementById("container");
+//				container.innerHTML="hello& <b>world</b>";
+//				container.outerHTML="this id paragraph";
+			
+				//获取对象的元素节点(过滤掉了空白文本节点),不同于childNodes
+//				alert(container.children.length); 
+				//判断是否包含某个节点
+//				ul = document.getElementById("list");
+//				alert(container.contains(ul));	//true,ul是div的子元素
+				//确定节点之间的关系
+//				alert(container.compareDocumentPosition(ul)); //20=4(居后)+16(被包含)
+
+
+
+				//计算偏移量
+//				var ele=document.getElementById("p");
+				/*var offsetWidth=ele.offsetWidth;	//width+border+padding=140px，也包含滚动条
+				var offsetLeft=ele.offsetLeft;		//相对于html的偏移量,50+50=100px
+				console.log(offsetWidth);
+				console.log(offsetLeft);*/
+				
+				//客户区的大小，元素内容及其内边距所占的大小,不包含边框
+//				var clientWidth = ele.clientWidth;
+//				console.log(clientWidth);	//120px= 100(width)+20(padding);
+				
+				//滚动大小
+//				var ele = document.getElementById("container");
+//				var scrollWidth=ele.scrollWidth;
+//				var scrollLeft=ele.scrollLeft;
+//				console.log(scrollWidth);	//元素内容的总宽度(不包含滚动条);1500+10*2+10*2=1900px;
+//				console.log(scrollLeft);
+
+
+				//原型
+				/*function Person(){
+					
+				}
+				Person.prototype = {
+//					constructor : Person,
+					name : "张三",
+					sayName : function (){
+						alert(this.name);
+					}
+				}
+				
+				//实例在原型之后继承原型的，如果原型在实例之后就会切断现有实例与新原型之间的关系
+				var  person = new Person();	
+				
+				person.sayName();
+//				alert(person.constructor==Person);//false
+				alert(person.constructor==Object);// true,对象字面量会重写默认的prototype，指向了Object
+				alert(person.__proto__==Person.prototype);	//true*/
+				
+				
+				
+				
+				
+				
+				
+			}
+		</script>
+		<style type="text/css">
+			*{
+				/*margin: 0;*/
+			}
+			#container{
+				/*width: 200px;
+				height: 200px;*/
+				background: #0000FF;
+				margin-left: 50px;
+				overflow: auto;
+			}
+			#container p{
+				width: 1500px;
+				height: 100px;
+				background: yellow;
+				margin-left: 50px;
+				border: 10px solid;
+				padding: 10px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<p id="">
+			nihao
+			
+		</p>
+	<div id="container">
+			<ul id="list">
+				<li name="l1">1</li>
+				<li name="l2">2</li>
+				<li name="l3">3</li>
+			</ul>
+			<p id="p">
+				<span>
+				你好世界
+				</span>
+			</p>
+	</div>
+	</body>
+</html>

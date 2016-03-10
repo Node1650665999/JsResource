@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload=function(){
+				//数据结构与算法
+				//二叉树
+				function Node(data,left,right){
+					this.data=data;
+					this.left=left;
+					this.right=right;
+					this.show=show;
+				}
+				//显示数据
+				function show(){
+					return this.data;
+				}
+				
+				//二叉查找树
+				function BST(){
+					//初始化根节点
+					this.root=null;
+					this.insert=insert;
+					this.inOder=inOder;
+					this.preOder = preOder;
+					this.nextOder = nextOder;
+					this.getMax = getMax;
+					this.getMin = getMin;
+					this.find = find;
+				}
+				
+				//插入数据
+				function insert(data){
+					var node=new Node(data,null,null);
+					//如果根节点为空,初始化根节点
+					if(this.root==null){
+						this.root=node;
+					}else{
+						//当前节点为根节点
+						var current=this.root;						
+						var parent;
+						//循环
+						while(true){
+							parent = current;
+							//如果数据小于当前节点数据，插入左树
+							if(data < current.data){
+								//改变左树节点为当前节点
+								current = current.left;
+								//如果左树节点为空，给其赋值
+								if(current == null){
+									parent.left = node;
+									//退出循环
+									break;
+								}
+							}else{ //否则插入右树
+								current = current.right;
+								//如果右树节点为空，给其赋值
+								if(current == null){
+									parent.right = node;
+									break;
+								}
+							}
+						}
+						
+					}
+				}
+				
+				//遍历二叉树
+				//1中序遍历：按照键值升序访问BST上的所有节点
+				function inOder(node){
+					if(node != null){
+						
+						inOder(node.left);
+						console.log(node.show());
+						inOder(node.right);
+					}
+				}
+				
+				//2先序遍历，先访问根节点，然后以同样方式访问左子树和右子树,按照树的结构遍历相对位置关系l,由上向下
+				function preOder(node){
+					if(node != null){
+						console.log(node.show());
+						preOder(node.left);
+						preOder(node.right);
+					}
+				}
+				
+				//3后续遍历，先遍历叶子节点，从左树到右树，再到根节点，由下向上
+				function nextOder(node){
+					if(node != null){
+						nextOder(node.left);
+						nextOder(node.right);
+						console.log(node.show());
+					}
+				}
+				
+				//查找最大值,最大值在右子树的最后一个节点
+				function getMax(){
+					var current = this.root;
+					while((current.right != null)){
+						current = current.right;
+					}
+					//最后一个节点的右子树肯定为空
+					return current.data;
+					
+				}
+				
+				//查找最小值，最小值在左子树的最后一个节点
+				function getMin(){
+					var current = this.root;
+					while((current.left != null)){
+						current = current.left;
+					}
+					//左子树最后一个节点的左子树肯定为0
+					return current.data;
+				}
+				
+				//查找给定值,给定值与当前根节点进行比较，如果相等则返回当前值，如果不行等，再根据与当前值得大小关系决定左遍历还是右遍历
+				function find(data){
+					var current = this.root;
+					while( current != null){
+						if(data == current.data){
+							return current;
+						}else if(data < current.data){
+							current = current.left;
+						}else if(data > current.data){
+							current = current.right;
+						}else{
+							return null;
+						}
+					}
+					
+				}
+				
+				
+				
+				
+				var nums = new BST();
+				nums.insert(23);
+				nums.insert(45);
+				nums.insert(16);
+				nums.insert(37);
+				nums.insert(3);
+				nums.insert(99);
+				nums.insert(22);
+				nums.insert(2);
+				nums.insert(4);
+//				nums.inOder(nums.root);
+//				nums.preOder(nums.root);
+//				nums.nextOder(nums.root);
+				console.log(nums.getMax());	//99
+				console.log(nums.getMin());	//2
+				console.log(nums.find(45));
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

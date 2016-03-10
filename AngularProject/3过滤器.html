@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="angular.js" type="text/javascript"></script>
+	</head>
+	<body ng-app="myApp">
+		
+		<div ng-controller="myController">
+			{{name|uppercase}}
+			<!--第一个参数是函数,对数组进行函数过滤，返回满足函数条件的值-->
+		<p>{{ ["Java","Php","js"] | filter:isCapital }}</p>
+		</div>
+		<!--过滤器，filter 过滤器可以从给定数组中选择一个子集，并将其生成一个新数组返回-->
+		<!--过滤器的第一个参数可以是字符串、对象或是一个用来从数组中选择元素的函数-->
+		<!--过滤含有字符串e的元素-->
+		{{ ['e','Lerner','Likes','To','Eat','Pizza'] | filter:'e':true }}
+		<!--过滤的第一个参数是对象,判断对象的属性中是否含有指定的字符串-->
+		<p>{{ [{ 'name': 'Ari', 'City': 'San Francisco', 'favorite food': 'Pizza' },{ 'name': 'Nate', 'City': 'San Francisco', 'favorite food': 'indian food' }] | filter:{"favorite food": 'Pizza'} }}</p>
+		<!--序列化JSON或者JavaScript对象-->
+		{{ {"name":"张三","age":23} | json }}
+		<!--截取元素或者字符-->
+		<p>{{"this is route where future is good" | limitTo:7 }}</p>
+		<!--格式化数字,保留小数点后两位-->
+		{{ 123456.789 | number:2 }}
+		<!--自定义过滤器,将一个句子的首字母变大写-->
+		<p>{{ "this is route where future is good" | lowercase | capitalize }}</p>
+		<script type="text/javascript" src="3过滤器.js" ></script>
+	</body>
+</html>
