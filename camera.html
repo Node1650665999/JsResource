@@ -1,0 +1,159 @@
+<!DOCTYPE html>  
+<html>  
+ <head>  
+  <title> 浏览器webcamera </title>  
+  <meta charset="UTF-8"/>
+  <meta name="Generator" content="EditPlus">  
+  	<style type="text/css">
+  		.imgBox{
+  			margin-top: 60px;
+  		}
+  		.container{
+  			display: none;
+  		}
+  	</style>
+  	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href=""/>
+  <script>  
+  $(function(){
+	    $('.bg').click(function(){  
+	        // canvas 元素将用于抓拍  
+	        var canvas = $('canvas')[0],  
+	            context = canvas.getContext("2d"),  
+	            // video 元素，将用于接收并播放摄像头 的数据流  
+	            video = $('video')[0],  
+	            videoObj = { "video": true},  
+	            //打印出错信息  
+	            errBack = function(error) {  
+	                if("object" === typeof window.console){  
+	                    console.log("Video capture error: ", error.code);   
+	                }  
+	            };  
+	  		
+	  		$('.container').show();
+	  		
+	        //兼容
+	        navigator.getUserMedia  = navigator.getUserMedia ||
+	                          		  navigator.webkitGetUserMedia ||
+	                                  navigator.mozGetUserMedia ||
+	                                  navigator.msGetUserMedia;
+	        if (navigator.getUserMedia) {
+			    navigator.getUserMedia(videoObj, function(stream) {
+			    	if (window.URL) {
+					    video.src = window.URL.createObjectURL(stream);
+					} else {
+						video.src = stream;
+					}
+					window.stream = stream;
+	                video.play();  
+	//              或者video.autoplay = true;
+	            }, errBack); 
+			    
+			} else {
+			     alert('your browser does not support getUserMedia');
+			}
+			
+			//关闭摄像头
+	         $('.close').click(function(){
+	         	window.stream.getVideoTracks()[0].stop();
+	         	URL.revokeObjectURL(video.src);
+	         	$('.container').hide();
+	         });
+	        
+	        
+	        // 拍照
+	        $('video').click(function(){
+	            // 画到画布上  
+	            context.drawImage(video, 0, 0, 640, 480);  
+	            var img = $('<img src="'+canvas.toDataURL('image/png')+'" />');
+	            $('.imgBox').append(img);
+		  		img.dblclick(function(){
+		  			$(this).remove();
+		  		});
+	        });
+	    });  
+  	
+  });
+  $.fn.erbaoCamera = function(options){
+  	 var config = {
+  	 	'width' : 640,
+  	 	'height' : 480,
+  	 	'container' : '.mask'
+  	 };
+  	 
+	//清空容器  	 
+	$(config.container).empty().show();
+  		
+  		
+  	 $.extend(config,options);
+  	 var videoBox = $('<div class="videoBox"></div>');
+  	 var video  = $('<video autoplay></video>');
+  	 var canvas = $('<canvas></canvas>');
+  	 var close  = $('<span class=""></span>')
+  	 videoBox.append(video).append(canvas);
+  	 
+  	 $('.videoBox video,.videoBox canvas').css({
+  	 	'width' : config.width+'px',
+  	 	'height' : config.height+'px'
+  	 });
+  	 canvas.css({
+  	 	'display' : 'none'
+  	 });
+  	 
+  	 //画布
+  	 var canvas = $('canvas')[0],  
+        context = canvas.getContext("2d"),  
+        video = $('video')[0],  
+        videoObj = { "video": true},  
+        //错误
+        errBack = function(error) {  
+            if("object" === typeof window.console){  
+                console.log("Video capture error: ", error.code);   
+            }  
+        };  
+        
+    	//数据流
+        navigator.getUserMedia  = navigator.getUserMedia ||
+                          		  navigator.webkitGetUserMedia ||
+                                  navigator.mozGetUserMedia ||
+                                  navigator.msGetUserMedia;
+        if (navigator.getUserMedia) {
+		    navigator.getUserMedia(videoObj, function(stream) {
+		    	if (window.URL) {
+				    video.src = window.URL.createObjectURL(stream);
+				} else {
+					video.src = stream;
+				}
+				window.stream = stream;
+                video.play();  //或者video.autoplay = true;
+            }, errBack); 
+		} else {
+		     alert('your browser does not support getUserMedia');
+		}
+	  		
+  		
+  	 
+  }
+  
+  
+  
+  </script>  
+ </head>  
+  
+ <body>  
+    
+    <button id="snap">Snap Photo</button>  
+	<button class="close">关闭</button>
+	<button class="takPhoto">拍照</button>
+    <!--<div class="videoBox">  
+        <video id="video" width="640" height="480" autoplay></video>  
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>  
+        <div class="imgBox">
+        </div>
+    </div>  -->
+    <div class="mask">
+    	
+    	
+    </div>
+ </body>  
+</html> 
