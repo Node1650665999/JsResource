@@ -1,0 +1,214 @@
+<html>
+	<head>
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="img/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="img/font-awesome.min.css"/>
+		<style type="text/css">
+			#imgBanner img{
+				width: 100px;
+				height: 100px;	
+			}
+			
+			body{
+				padding: 100px;
+			}
+			.current{
+				background: #6ED454 !important;
+			}
+			
+	    </style>
+		<script type="text/javascript">
+		$(function(){
+			$.fn.imgViewScroll = function(options={}){
+				var config = {
+					'width' : 800,   //轮播图宽度
+					'height' : 500,  //轮播图高埗
+					'time'   : 2000, //轮播时间建个
+					'container' : '.mask' //容器名称
+				};
+				$.extend(config, options);
+				
+				var nodeName = $(this).prop('nodeName');
+				if(nodeName != 'IMG'){
+					return;
+				}
+				
+				//清空容器并显示
+				$(config.container).empty().show();
+				
+				//轮播div
+				var img = $(this).parent().find('img');
+				var newImg = img.clone();
+				var nums   = newImg.length;
+				var imgBox = $('<div class="imgBox"></div>');
+				var prev   = $('<span class="icon-angle-left"></span>');
+				var next   = $('<span class="icon-angle-right"></span>');
+				var iconBox  = $('<p class="iconBox"></p>');
+				var close  = $('<span class="icon-remove-circle"></span');
+				
+				var str = '';
+				for (var i=0; i<nums; i++) {
+					str += '<span ></span>';
+				}
+				var listIcon = $(str);
+				iconBox.append(listIcon);
+				var imgCont = $('<div></div>');
+				imgBox.html(imgCont);
+				imgCont.html(newImg);
+				imgBox.appendTo($(config.container));
+				imgBox.append(prev);
+				imgBox.append(next);
+				imgBox.append(iconBox);
+				imgBox.append(close);
+				
+				$('.imgBox img,.imgBox').css({
+					'width' : config.width+'px',
+					'height': config.height+'px'
+				});
+				imgBox.css({
+					'overflow' : 'hidden',
+					'margin'   : '0 auto',
+					'z-index'  : 100,
+					'position' : 'relative'
+				});
+				
+				imgCont.css({
+				'width' : config.width*nums+'px',
+				'height': config.height+'px'
+				});
+				$('.imgBox img').css({
+					'display' : 'inline-block'
+				});
+				prev.css({
+					'font-size' : 80+'px',
+					'left'      : 10+'px',
+					'top'       : '50%',
+					'position'  : 'absolute',
+					'margin-top': '-40px'
+				});
+				next.css({
+					'font-size' : 80+'px',
+					'right'   : 10+'px',
+					'top'  : '50%',
+					'position' : 'absolute',
+					'margin-top' : '-40px'
+				});
+				iconBox.css({
+					'width' : '80%',
+					'margin'   : '0 auto',
+					'bottom'  : '20px',
+					'position' : 'absolute',
+					'left' : '50%',
+					'text-align' : 'center',
+					'margin-left' :'-40%'
+				});
+				listIcon.css({
+					'width' : 15+'px',
+					'height' : 15+'px',
+					'border-radius' : 30+'px',
+					'display' : 'inline-block',
+					'background' : '#7E827D',
+					'margin-left' : '10px'
+				});
+				close.css({
+					'font-size' : config.height/6+'px',
+					'right'   : '10px',
+					'top'  : '10px',
+					'position' : 'absolute',
+					'color'  : '#D00707'
+					
+				});
+				close.on('click',function(){
+					$(config.container).hide().empty();
+				});
+				//轮播事件
+				var i =1;
+				$(listIcon[i-1]).addClass('current').siblings().removeClass('current');
+				prev.on('click',function(){
+					if(!imgCont.is(':animated')){
+	                	i++;
+						if(i>nums){
+							imgCont.animate({'margin-left':0});
+							i=1;
+							$(listIcon[i-1]).addClass('current').siblings().removeClass('current');
+							return;
+						}
+						imgCont.stop(false,true).animate({  
+	                        'margin-left': '-='+config.width+'px'  //相对动画
+	                    },  
+	                    'slow');
+	                    $(listIcon[i-1]).addClass('current').siblings().removeClass('current');
+					}
+				});
+				
+				next.on('click',function(){
+					if(!imgCont.is(':animated')){
+						i--;
+						if(i<1){
+							imgCont.animate({'margin-left':'-='+(nums-1)*config.width+'px'});
+							i=5;
+							$(listIcon[i-1]).addClass('current').siblings().removeClass('current');
+							return;
+						}
+						imgCont.stop(false,true).animate({  
+	                        'margin-left': '+='+config.width+'px'  
+	                    },  
+	                    'slow');
+	                    $(listIcon[i-1]).addClass('current').siblings().removeClass('current');
+					}
+				});
+				
+				listIcon.on('click',function(){
+					var index = $(this).index();
+					if(!$(this).is(':animated')){
+						imgCont.clearQueue().animate({'margin-left':'-'+(index*config.width)+'px'});
+						$(this).addClass('current').siblings().removeClass('current')
+						i = index +1;
+					}
+				});
+				
+				//循环轮播
+				var timer = setInterval(function(){
+					next.click();
+				},config.time);
+				imgBox.hover(
+				function(){
+					clearInterval(timer);
+				},
+				function(){
+					timer = setInterval(function(){
+						prev.click();
+					},config.time);
+				});
+				
+				return $(this);
+			}
+			
+			$(function(){
+				$('img').click(function(){
+					var options = {
+						'width' : 500,
+						'height' :300,
+						'time'  : 1500
+					};
+					$(this).imgViewScroll(options);
+				})
+			});
+			
+		});
+		</script>
+	</head>
+	<body>
+		<div id="imgBanner">
+			<img src="img/1.jpg" alt="" />
+			<img src="img/2.jpg" alt="" />
+			<img src="img/3.jpg" alt="" />
+			<img src="img/4.jpg" alt="" />
+			<img src="img/5.jpg" alt="" />
+		</div>
+		<div class="mask">
+			
+		</div>
+	</body>
+</html>
