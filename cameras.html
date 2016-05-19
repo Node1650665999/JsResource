@@ -1,0 +1,184 @@
+<!DOCTYPE html>  
+<html>  
+ <head>  
+  <title> 浏览器webcamera </title>  
+  <meta charset="UTF-8"/>
+  <meta name="Generator" content="EditPlus">  
+  	<style type="text/css">
+  		.mask{
+  			display: none;
+  		}
+  		html {
+		  height: 100%;
+		}
+		
+		body {
+		  height: 100%;  
+		  padding: 10px;
+		}
+		.current{
+			border: 1px solid red;
+		}
+  	</style>
+  	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="前端特效/css/bootstrap.css"/>
+  	<link rel="stylesheet" type="text/css" href="前端特效/css/font-awesome.css"/>
+  	<link rel="stylesheet" type="text/css" href=""/>
+  <script>  
+	$(function(){
+		$.fn.erbaoCamera = function(options){
+	  	 var config = {
+	  	 	'width' : 640,
+	  	 	'height' : 480,
+	  	 	'container' : '.mask'
+	  	 };
+  		
+	  	 $.extend(config,options);
+	  	 
+	  	 var Box = $('<div class="Box row"></div>');
+	  	 var half      = $('<div class="col-md-6"></div>');
+	  	 var videoEle  = $('<video  autoplay></video>');
+	  	 var canvasEle = $('<canvas  style="display: none;"></canvas>');
+	  	 var close  = $('<span class="icon-remove-circle"></span>');
+	  	 var imgList = $('<form class="col-md-6"></form>');
+	  	 var uploadBtn = $('<button class="btn btn-primary btn-large btn-block">确定上传</button>');
+	  	 var add = $('<div class="icon-plus add"></div>');
+	  	 
+	  	videoEle.attr({width : config.width, height: config.height});
+	  	canvasEle.attr({width : config.width, height: config.height});
+		Box.append(half);
+	    Box.append(imgList);
+	    half.prepend(close);
+	    half.append(videoEle);
+	    half.append(canvasEle);
+	    imgList.append(add);
+	    imgList.append(uploadBtn);
+		$(config.container).empty().append(Box).show();
+		
+		 //样式
+	    $(config.container).css({
+	    	'width' : '100%',
+	    	'height' : '100%',
+	    	'z-index' : '10',
+	    	'position' : 'fixed'
+	    });
+	    
+	    Box.css({
+	    	'position' : 'fixed',
+	    	'margin' : '0 0 0 10%'
+	    });
+	    half.css({
+	    	'width' : config.width + 'px',
+	    	'height' : config.height + 'px',
+	    });
+	    close.css({
+	    	'font-size' : config.height/10+'px',
+            'color'  : '#D00707'
+	    });
+	    add.css({
+	    	'font-size' : '50px',
+		    'position': 'relative',
+    		'left':' 50%'
+	    });
+	    imgList.css({
+	    	'height' : config.height*2+'px',
+	    	'overflow' : 'auto',
+	    	'width': config.width+'px',
+	    	'margin-left' : '10px'
+	    });
+	    uploadBtn.css({
+	    	'width' : config.width+'px',
+	    	'margin-bottom' : '10px'
+	    });
+	    
+	  	//画布
+	  	var canvas = canvasEle[0],  
+	    context = canvas.getContext("2d"),  
+	    video = videoEle[0],  
+	    videoObj = { "video": true},  
+	        //错误
+	    errBack = function(error) {  
+	        if("object" === typeof window.console){  
+	            console.log("Video capture error: ", error.code);   
+	        }  
+	    };  
+    
+		//数据流
+	    navigator.getUserMedia  = navigator.getUserMedia ||
+	                      		  navigator.webkitGetUserMedia ||
+	                              navigator.mozGetUserMedia ||
+	                              navigator.msGetUserMedia;
+	    if (navigator.getUserMedia) {
+		    navigator.getUserMedia(videoObj, function(stream) {
+		    	if (window.URL) {
+				    video.src = window.URL.createObjectURL(stream);
+				} else {
+					video.src = stream;
+				}
+				window.stream = stream;
+	            video.play();  //或者video.autoplay = true;
+	        }, errBack); 
+		} else {
+		     alert('your browser does not support getUserMedia');
+		}
+		
+		//新图片
+		add.click(function(){
+			imgList.find('div').removeClass('current');
+			var newImg = $('<div></div');
+			newImg.addClass('current');
+			imgList.append(newImg);
+			newImg.css({
+	    	'width' : config.width + 'px',
+	    	'border' : '1px solid #ccc',
+	    	'height' : config.height + 'px',
+	    	'margin-bottom' : '5px'
+	    	});
+		});
+	  		
+		//关闭摄像头
+	     close.click(function(e){
+	     	window.stream.getVideoTracks()[0].stop();
+	     	URL.revokeObjectURL(video.src);
+	     	$(config.container).empty().hide();
+//	     	event.stopPropagation();
+	     });
+	    
+	    // 拍照
+	    var img ;
+	    videoEle.click(function(){
+	        // 画到画布上  
+	        context.drawImage(video, 0, 0, config.width, config.height);  
+	        img = $('<img src="'+canvas.toDataURL('image/png')+'" />');
+	        imgList.find('div.current').html(img);
+    	   
+	  		imgList.find('div:not(add)').dblclick(function(){
+	  			$(this).remove();
+	  		});
+	    });
+	    
+	    //支持链式调用
+	    return $(this);
+  }
+  
+	  $('.takPhoto').click(function(){
+	  	$(this).erbaoCamera({width:500,height:380});
+	  });
+		
+});
+	
+  
+  
+  
+  </script>  
+ </head>  
+  
+ <body>  
+    
+	<button class="takPhoto btn btn-default">拍照</button>
+    <div class="mask">
+    	
+    	
+    </div>
+ </body>  
+</html> 
