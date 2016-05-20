@@ -17,7 +17,7 @@
 		  padding: 10px;
 		}
 		.current{
-			border: 1px solid red;
+			background: green;
 		}
   	</style>
   	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
@@ -41,8 +41,10 @@
 	  	 var canvasEle = $('<canvas  style="display: none;"></canvas>');
 	  	 var close  = $('<span class="icon-remove-circle"></span>');
 	  	 var imgList = $('<form class="col-md-6"></form>');
+	  	 var imgListSub = $('<div></div>');
+	  	 var imgListUp = $('<div></div>');
 	  	 var uploadBtn = $('<button class="btn btn-primary btn-large btn-block">确定上传</button>');
-	  	 var add = $('<div class="icon-plus add"></div>');
+	  	 var add = $('<button class="btn btn-primary btn-block icon-plus add "></button>');
 	  	 
 	  	videoEle.attr({width : config.width, height: config.height});
 	  	canvasEle.attr({width : config.width, height: config.height});
@@ -51,8 +53,10 @@
 	    half.prepend(close);
 	    half.append(videoEle);
 	    half.append(canvasEle);
-	    imgList.append(add);
-	    imgList.append(uploadBtn);
+	    imgList.append(imgListSub);
+	    imgListSub.append(add);
+	    imgListSub.append(uploadBtn);
+	    imgList.append(imgListUp);
 		$(config.container).empty().append(Box).show();
 		
 		 //样式
@@ -70,21 +74,25 @@
 	    half.css({
 	    	'width' : config.width + 'px',
 	    	'height' : config.height + 'px',
+	    	'margin-right' : '10px',
+	    	'margin-top': '-16px',
+	    	'text-align': 'center'
 	    });
 	    close.css({
-	    	'font-size' : config.height/10+'px',
-            'color'  : '#D00707'
+	    	'font-size' : '80px',
+            'color'  : '#D00707',
+            'cursor': 'pointer'
 	    });
 	    add.css({
 	    	'font-size' : '50px',
 		    'position': 'relative',
-    		'left':' 50%'
+    		'left':' 50%',
+    		'cursor': 'pointer'
 	    });
-	    imgList.css({
-	    	'height' : config.height*2+'px',
+	    imgListUp.css({
+	    	'height' : config.height+'px',
 	    	'overflow' : 'auto',
 	    	'width': config.width+'px',
-	    	'margin-left' : '10px'
 	    });
 	    uploadBtn.css({
 	    	'width' : config.width+'px',
@@ -123,17 +131,26 @@
 		}
 		
 		//新图片
-		add.click(function(){
-			imgList.find('div').removeClass('current');
+		add.click(function(e){
+			e.preventDefault();
+			console.log("123");
+			imgListUp.find('div').removeClass('current');
 			var newImg = $('<div></div');
 			newImg.addClass('current');
-			imgList.append(newImg);
+			imgListUp.append(newImg);
 			newImg.css({
 	    	'width' : config.width + 'px',
 	    	'border' : '1px solid #ccc',
 	    	'height' : config.height + 'px',
 	    	'margin-bottom' : '5px'
 	    	});
+	    	imgListUp.find('div').dblclick(function(){
+	  			$(this).remove();
+	  		});
+	  		return false;
+		});
+		uploadBtn.click(function(e){
+			e.preventDefault();
 		});
 	  		
 		//关闭摄像头
@@ -141,7 +158,6 @@
 	     	window.stream.getVideoTracks()[0].stop();
 	     	URL.revokeObjectURL(video.src);
 	     	$(config.container).empty().hide();
-//	     	event.stopPropagation();
 	     });
 	    
 	    // 拍照
@@ -150,9 +166,8 @@
 	        // 画到画布上  
 	        context.drawImage(video, 0, 0, config.width, config.height);  
 	        img = $('<img src="'+canvas.toDataURL('image/png')+'" />');
-	        imgList.find('div.current').html(img);
-    	   
-	  		imgList.find('div:not(add)').dblclick(function(){
+	        imgListUp.find('div.current').html(img);
+	  		imgListUp.find('div').dblclick(function(){
 	  			$(this).remove();
 	  		});
 	    });
@@ -161,7 +176,7 @@
 	    return $(this);
   }
   
-	  $('.takPhoto').click(function(){
+	  $('.takePhoto').click(function(){
 	  	$(this).erbaoCamera({width:500,height:380});
 	  });
 		
@@ -175,7 +190,7 @@
   
  <body>  
     
-	<button class="takPhoto btn btn-default">拍照</button>
+	<button class="takePhoto btn btn-default">拍照</button>
     <div class="mask">
     	
     	
