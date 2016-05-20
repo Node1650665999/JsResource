@@ -155,9 +155,9 @@
 	  		
 		//关闭摄像头
 	     close.click(function(e){
+	     	$(config.container).empty().hide();
 	     	window.stream.getVideoTracks()[0].stop();
 	     	URL.revokeObjectURL(video.src);
-	     	$(config.container).empty().hide();
 	     });
 	    
 	    // 拍照
