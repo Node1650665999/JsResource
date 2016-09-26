@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!-- 指令必须以v-开头-->
+		
+		<!--属性作为指令-->
+		<div id="demo" v-my-directive:args='msg'>123</div>
+		<script type="text/javascript">
+			//外部指令
+			/*Vue.directive('my-directive', {         //注册指令
+				bind: function() {},
+				update: function(value) {},
+				unbind: function() {}
+			});*/
+			
+			
+			var demo = new Vue({
+				el: '#demo',
+				data: {
+					msg: 'hello!'
+				},
+				//指令如果封装在内部,则使用指令的复数形式directives
+				directives : {  
+					myDirective : {   //遵守命名规则驼峰，或者使用'my-directive'
+						bind: function() {
+							// 准备工作
+							// 例如，添加事件处理器或只需要运行一次的高耗任务
+						},
+						update: function(value) {   // value = hello!
+							// 值更新时的工作
+							// 也会以初始值为参数调用一次
+							console.log(value);
+							this.el.innerHTML = '<h1>' + value + '</h1>';
+		
+						},
+						unbind: function() {
+							// 清理工作
+							// 例如，删除 bind() 添加的事件监听器
+						}
+					}
+				}
+			});
+			
+			
+		</script>
+
+	</body>
+
+</html>

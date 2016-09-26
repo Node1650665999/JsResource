@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态组件</title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<component :is="currentView">
+		  	<!-- 组件在 vm.currentview 变化时改变 -->
+		</component>
+		<input type="text" v-model='currentView'/>
+		<script type="text/javascript">
+			new Vue({
+			  el: 'body',
+			  data: {
+			    currentView: 'home'
+			  },
+			  components: {
+			    home: { 
+			    	template: '<h1>home</h1>',
+			    	//组件切换时触发activate钩子
+			    	activate : function(){
+			    		console.log("组件切换");
+			    	}
+			    },
+			    posts: { 
+			    	template: '<h1>posts</h1>',
+			    },
+			    archive: { 
+			    	template: '<h1>archive</h1>',
+			    },
+			    
+			  }
+			})
+		</script>
+	</body>
+</html>

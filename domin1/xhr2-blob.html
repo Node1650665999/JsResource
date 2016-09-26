@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html>   
+<head>     
+<meta charset="utf-8">
+<title>创建及下载二进制文件</title>   
+<script>
+function downloadPic(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'sl.jpg', true);
+//  xhr.responseType = 'arraybuffer';
+    xhr.responseType = 'blob';
+    xhr.onload = function(e) {
+        if (this.status == 200) {
+            var bb = new Blob([this.response]);  //blob创建一个二进制数据,参数可以是arraybuffer，string,blob,
+            var reader = new FileReader();
+            reader.readAsDataURL(bb);   //file对象继承了blob对象,这里也可以是个file对象
+            reader.onload = function(f)
+            {
+                var result=document.getElementById("result");
+				var img = document.createElement('img');
+            	img.src = this.result; 
+            	document.body.appendChild(img); 
+            }
+        }
+    };
+    xhr.send();
+}
+</script>
+</head>  
+<body>     
+<h1>将responseType属性值指定为“arraybuffer”</h1>   
+<input type="button" value="下载图片" onclick="downloadPic()"><br/>    
+<output id="result" ></output>   
+</body> 
+</html>

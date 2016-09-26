@@ -1,0 +1,48 @@
+﻿<!DOCTYPE HTML>
+<html manifest="applicationCacheEvent.manifest">
+<head>
+<meta charset="UTF-8">
+<title>applicationCache事件流程示例</title>
+<script>
+/*
+    manifest更新机制： 
+    1 checking到manifest更新了
+    2 download 所有资源文件 js，css,图片等，同时伴随着process事件
+    3 下载完成后触发 updateready事件告诉本地缓存有更新，
+    	本地缓存可以选择立马更新(applicationCache.swapCache())或者速刷新页面
+ * 
+ * 
+ * */
+
+function init() 
+{
+    var msg=document.getElementById("msg");
+    applicationCache.addEventListener("checking", function() {
+        msg.innerHTML+="checking<br/>";
+    }, true);
+    applicationCache.addEventListener("noupdate", function() {
+        msg.innerHTML+="noupdate<br/>";
+    }, true);
+    applicationCache.addEventListener("downloading", function() {
+        msg.innerHTML+="downloading<br/>";
+    }, true);
+    applicationCache.addEventListener("progress", function() {
+        msg.innerHTML+="progress<br/>";
+    }, true);
+    applicationCache.addEventListener("updateready", function() {
+        msg.innerHTML+="updateready<br/>";  
+    }, true);
+    applicationCache.addEventListener("cached", function() {
+        msg.innerHTML+="cached<br/>";          
+    }, true);
+    applicationCache.addEventListener("error", function() {
+	msg.innerHTML+="error<br/>"; 
+    }, true);
+}
+</script>
+</head>
+<body onload="init()">
+<h1>applicationCache事件流程示例</h1>
+<p id="msg"></p>
+</body>
+</html>

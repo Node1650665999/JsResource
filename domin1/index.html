@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>iframe跨域通信示例</title>
+<script type="text/javascript">
+// (1) 监听message事件
+window.addEventListener("message", function(ev) {
+  // (2) 忽略指定URL地址之外的页面传过来的消息
+  if (ev.origin != "http://domin2.com") {
+    return;
+  }
+  // (3) 显示消息
+  alert("从"+ev.origin + "那里传过来的消息:\n\"" + ev.data + "\"");
+}, false);
+function hello() 
+{
+  var iframe = window.frames[0];
+  // (4) 传递消息
+  iframe.postMessage("你好", "http://domin2.com");
+}
+</script>
+</head>
+<body>
+<h1>跨域通信示例,这里使用最古老的iframe,引用domin2下的index.html</h1>
+<iframe width="400" src='http://domin2.com/' onload="hello()">
+	
+</iframe>
+</body>
+</html>

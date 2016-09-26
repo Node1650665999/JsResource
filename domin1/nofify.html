@@ -1,0 +1,29 @@
+<html>
+
+	<head>
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("btn").onclick = function() {
+					var notification = new Notification('别动神仙说：', {
+						body: '这里是body',
+						icon: 'http://q4.qlogo.cn/g?b=qq&k=icUjVAN5Ja7BCDQ1ICl8Svw&s=40',
+						tag: 1  // 控制多条通知还是单条通知
+					});
+					
+					//通知显示3秒后消失
+					notification.onshow = function() {
+						setTimeout(function() {
+							notification.close();
+						}, 3000);
+					}
+				};
+			}
+		</script>
+	</head>
+
+	<body>
+		<button id="btn">显示通知</button>
+	</body>
+
+</html>

@@ -1,0 +1,84 @@
+
+
+
+<!--
+	FileReader缩略图/对象URL缩略图
+	选择文件直接预览
+	自定义一个文件选择ui
+	文件隐藏
+-->
+
+<input type="file" id="fileElem" multiple style="display:none" onchange="handleFiles(this.files)">
+<a href="#" id="fileSelect">Select some files</a>
+<div id="preview"></div>
+<!--上传-->
+<button id="send" onclick="sendFiles()">上传</button>  
+<script type="text/javascript">
+	var fileSelect = document.getElementById("fileSelect"),
+		fileElem = document.getElementById("fileElem");
+
+	fileSelect.addEventListener("click", function(e) {
+		if(fileElem) {
+			fileElem.click();
+		}
+		e.preventDefault(); // prevent navigation to "#"
+	}, false);
+
+	//FileReader
+//	function handleFiles(files) {
+//		for(var i = 0; i < files.length; i++) {
+//			var file = files[i];
+//			var imageType = /^image\//;
+//
+//			if(!imageType.test(file.type)) {
+//				continue;
+//			}
+//
+//			var img = document.createElement("img");
+//			img.classList.add("obj");
+//			img.file = file;
+//			// 假设 "preview" 是将要展示图片的 div
+//			var preview = document.getElementById("preview");
+//			preview.appendChild(img);
+//			
+//			// 核心对象
+//			var reader = new FileReader();
+//			reader.onload = (function(aImg) {
+//				return function(e) {
+//					aImg.src = e.target.result;   // base64的编码格式  data:image/jpeg;base64,......
+//				};
+//			})(img);
+//			reader.readAsDataURL(file);
+//		}
+//	}
+	
+	//对象对象Url
+	function handleFiles(files) {
+		var preview = document.getElementById("preview");
+		  if (!files.length) {
+		    preview.innerHTML = "<p>No files selected!</p>";
+		  } else {
+		    var list = document.createElement("ul");
+		    for (var i = 0; i < files.length; i++) {
+		      var li = document.createElement("li");
+		      list.appendChild(li);
+		      
+		      var img = document.createElement("img");
+		      img.src = window.URL.createObjectURL(files[i]);  //blob格式  blob:http%3A//127.0.0.1%3A8020/3303a59a-e136-4046-b767-f10cd71dda3c
+		      img.height = 60;
+		      img.onload = function(e) {
+		        window.URL.revokeObjectURL(this.src);  //释放掉url对象
+		      }
+		      li.appendChild(img);
+		      
+		      var info = document.createElement("span");
+		      info.innerHTML = files[i].name + "： " + files[i].size + " bytes";
+		      li.appendChild(info);
+		    }
+		    preview.appendChild(list);
+		  }
+	}
+
+
+	
+</script>

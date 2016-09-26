@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSONP Example</title>
+</head>
+<body>
+    <script>
+    
+        function handleResponse(response){
+           console.log(response.name);
+        }
+    
+        var script = document.createElement("script");
+        script.src = "http://domin1.com/Jsonp.php?callback=handleResponse";
+        document.body.insertBefore(script, document.body.firstChild);
+    </script>
+</body>
+</html>

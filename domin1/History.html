@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+		window.onload = function(){
+			window.onpopstate = function(event) {
+//				alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+				document.getElementById("content").innerHTML = "location: " + document.location + ", state: " + JSON.stringify(event.state);
+				console.log(history);
+			};
+
+//			history.replaceState({
+//				page: 0
+//			}, "title 0","?page=0");
+			history.pushState({
+				page: 0
+			}, "title 0","?page=0");
+			
+//			history.pushState({
+//				page: 1
+//			}, "title 1", "?page=1");
+//			history.pushState({
+//				page: 2
+//			}, "title 2", "?page=2");
+//			history.pushState({
+//				page: 3
+//			}, "title 3", "?page=3");
+			document.getElementById("btn").onclick = function(){
+				history.go(-2);
+			}
+//			history.back(); // alerts "location: http://example.com/example.html?page=1, state: {"page":1}"
+//			history.back(); // alerts "location: http://example.com/example.html, state: null
+//			history.go(2); // alerts "location: http://example.com/example.html?page=3, state: {"page":3}
+		}
+		</script>
+	</head>
+
+	<body>
+		<a href="http://www.baidu.com">sadasd</a>
+		<button id="btn">回退</button>
+		<div id="content">
+			
+		</div>
+	</body>
+
+</html>

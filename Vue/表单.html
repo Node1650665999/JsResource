@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--<div id="example-3">
+			<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+			<label for="jack">Jack</label>
+			<input type="checkbox" id="john" value="John" v-model="checkedNames">
+			<label for="john">John</label>
+			<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+			<label for="mike">Mike</label>
+			<br>
+			<span>Checked names: {{ checkedNames | json }}</span>
+			<script type="text/javascript">
+				new Vue({
+					el: '#example-3',
+					data: {
+						checkedNames: []
+					}
+				})
+			</script>
+		</div>-->
+
+		<!--<div id="example-4">
+			<input type="radio" id="one" value="One" v-model="picked">    
+			<label for="one">One</label>
+			<br>
+			<input type="radio" id="two" value="Two" v-model="picked">
+			<label for="two">Two</label>
+			<br>
+			<span>Picked: {{ picked }}</span
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el: '#example-4',
+				data: {
+					picked : ''
+				}
+			});
+			//$watch监控数据变化
+			vm.$watch('picked', function(){
+				console.log(this.picked);  //数据发生变化
+			})
+		</script>-->
+
+		<div id="example-5">
+			<select v-model="selected">
+				<option v-for="option in options" v-bind:value="option.value">  <!--v-bind:value=xxx  =>  value={{xxx}}-->
+					{{ option.text }}
+				</option>
+			</select>
+			<span>Selected: {{ selected }}</span>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: '#example-5',
+				data: {
+					selected: 'One',
+					options: [{
+						text: 'One',
+						value: 'One'
+					}, {
+						text: 'Two',
+						value: 'Two'
+					}, {
+						text: 'Three',
+						value: 'Three'
+					}]
+				}
+			});
+		</script>
+	</body>
+
+</html>

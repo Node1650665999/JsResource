@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html> 
+<html>   
+<head>     
+<meta charset="utf-8">
+<title>创建及下载二进制文件</title>   
+<script>
+
+// 链接 ： https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
+//创建及下载二进制文件
+function BlobBuilder_test(){
+    var text = document.getElementById("text").value;
+    var blob;
+    //创建Blob对象
+    blob = new Blob([text]);
+
+
+    //通过createObjectURL方法创建文字链接
+    if (window.URL) {
+        result.innerHTML = '<a href="' +window.URL.createObjectURL(blob) + '" target="_blank">文件下载</a>';
+    }
+    
+
+}
+</script>
+</head>  
+<body>     
+<textarea id="text" placeholder="请输入一些文字"></textarea><br />
+<button id="btndownload" onclick="BlobBuilder_test()">创建及下载二进制文件
+</button>  
+<output id="result"></output>  
+</body> 
+</html>
