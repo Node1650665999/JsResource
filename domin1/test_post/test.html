@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+	$str = 'ofnczJSp7UQUJsuupKszBSC+1vdl2m8ymrZXCUUeAFCMTLbn5dOKIS8Y9UfnmbGXYJDMj9RUMGVJN33aPHBuM8fJS048+8+4ZMm9mdq8WxTa/JE28F7QZgVFc11jkt3sRlhaptqhYevzV2ne8FPq3ybIc1uqxra7cjZlUn7dSaKfsGNdOHgM1uawgcRyiTnW732fcayqCK8dp0iAxbn3x/M1y7VAXAoheqkWIUIxFb0EDEIJ608ocnFHcNSysHVG86SuV1wN8Fsx+mz04oJdNWr2xichsAu6BZqqIB7f+M6UmB00wYde/Pfeq4MsXRuZIT1Q0MQPwqSTtWo0RmkH+n64K3xzspLZAyTx6k0zAoRhZGeLIA8L+Bow2lk7SKvDuXB/CAhXtrEz57WFsHFroAHPCxo4JFNTOS+Q8A9uhVHdua1FMZGyguMiOv4BM5MMqED49IcKLzDKUBvagb2HM/+Iil+ag60sLdwSZ4z40wO4bNSowao3UkE8JJrb1LbFL8i23VFVA2vjgT6t8gxu7g==';
+	$str = encodeURIComponent($str);
+		$(document).ready(function(){
+		var settings = {
+		  "async": true,
+		  "url": "test_post.php",
+		  "method": "POST",
+		  "headers": {
+		    "content-type": "application/x-www-form-urlencoded",
+		  },
+		  "data": {
+		    "name": $str
+		  }
+		}
+		
+		$.ajax(settings).done(function (response) {
+		  console.log(response);
+		});
+		});		
+	</script>
+</html>

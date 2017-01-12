@@ -7,6 +7,9 @@
 <p><img id="img" src="http://tooboo.b0.upaiyun.com/window_top/2016/05/146414757257451e74ae6f7.png	" /></p>
 <p>这是一段测试文字</p>
 <p><br/></p>-->
+
+<title>cookie跨域</title>
+
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
 //	var form = new FormData();
@@ -40,11 +43,9 @@
 			console.log(this.responseText);
 		}
 	});
-	//见链接 http://www.ruanyifeng.com/blog/2016/04/cors.html
+	
 	xhr.open("POST", "http://test.api.buyer.2bao.org/v1.1/b/login");
-	/*cookie跨域(这里不发送cookie), 请求时将cookie传递给服务端，
-	服务端同时需要设置header("Access-Control-Allow-Credentials: true"),
-	服务端Access-Control-Allow-Origin就不能再是*了*/
-	xhr.withCredentials = false;   
+	xhr.withCredentials = false;   //cookie跨域(这里不发送cookie), 请求时将cookie传递给服务端，
+									//	服务端同时需要设置header("Access-Control-Allow-Credentials: true");	
 	xhr.send(data);
 </script>

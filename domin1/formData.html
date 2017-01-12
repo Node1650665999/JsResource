@@ -10,9 +10,24 @@
 				var formData = new FormData();
 				for(var i = 0; i < files.length; i++) {
 					var file = files[i];
+//					console.log(file);
 					formData.append('myfile[]', file); //多文件上传
 				}
+//				console.log(files);
+//				formData.append('myfile', JSON.stringify(files));		//这种多文件上传会出错
 
+
+				formData.append('text', 'tcl');
+				formData.append('age', '18');
+		
+				
+				//查看formData数据添加成功没有
+				var values = formData.entries();
+				for (let key of values) {
+			  		console.log(key);
+				}	
+				return;
+				
 				var xhr = new XMLHttpRequest();
 				xhr.open('POST', 'formData.php', true);
 				xhr.onload = function(e) {

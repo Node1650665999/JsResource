@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var data = "merchant_id=3&merchant_token=";
+			
+			var xhr = new XMLHttpRequest();
+//			xhr.withCredentials = true;   //
+			
+			xhr.addEventListener("readystatechange", function () {
+			  if (this.readyState === 4) {
+			    console.log(this.responseText);
+			  }
+			});
+			
+			xhr.open("POST", "http://dev.api.buyer.2bao.org/v1.1/b/allprops");
+			xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+//			xhr.setRequestHeader("cache-control", "no-cache");
+//			xhr.setRequestHeader("postman-token", "48345ca3-8acb-89f6-4aca-b49ee46b35c3");
+			
+			xhr.send(data);
+		</script>
+	</body>
+</html>
