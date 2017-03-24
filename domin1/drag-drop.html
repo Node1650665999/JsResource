@@ -37,10 +37,11 @@
           e.preventDefault();
 
           [].forEach.call(e.dataTransfer.files, function (file) {
-          	console.log(file);
             if (file && file.type.match('image.*')) {
               var reader = new FileReader();
 
+              reader.readAsDataURL(file);
+              
               reader.onload = function (e) {
                 var img = doc.createElement('img');
                 img.src = e.target.result;
@@ -49,7 +50,6 @@
                 preview.appendChild(li);
               };
 
-              reader.readAsDataURL(file);
             }
           });
         }, false);

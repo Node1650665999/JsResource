@@ -8,11 +8,12 @@
 			function uploadFile() {
 			var files = document.getElementById("tcl").files;
 				var formData = new FormData();
-				for(var i = 0; i < files.length; i++) {
+				for(var i = 0; i < files.length; i++) 
+				{
 					var file = files[i];
-//					console.log(file);
 					formData.append('myfile[]', file); //多文件上传
 				}
+				
 //				console.log(files);
 //				formData.append('myfile', JSON.stringify(files));		//这种多文件上传会出错
 
@@ -22,11 +23,11 @@
 		
 				
 				//查看formData数据添加成功没有
-				var values = formData.entries();
+				/*var values = formData.entries();
 				for (let key of values) {
 			  		console.log(key);
 				}	
-				return;
+				return;*/
 				
 				var xhr = new XMLHttpRequest();
 				xhr.open('POST', 'formData.php', true);
@@ -48,17 +49,17 @@
 		
 					var img = document.createElement("img");
 					img.classList.add("obj");  //添加类
-					img.file = file;
+//					img.file = file;
 					// 假设 "preview" 是将要展示图片的 div
 					var preview = document.getElementById("preview");
 					preview.appendChild(img);
 		
 					var reader = new FileReader();
-					reader.onload = (function(aImg) {
-						return function(e) {
-							aImg.src = e.target.result;
-						};
-					})(img);
+					reader.onload = function(e)
+					{
+						img.src = this.result;
+					}
+					
 					reader.readAsDataURL(file);
 				}
 			}
@@ -68,7 +69,7 @@
 
 	<body>
 		<h1>使用FormData对象向服务器端上传文件</h1>
-		<form id="form1" enctype="multipart/form-data">
+		<form id="form1"  enctype="multipart/form-data">
 			请选择文件<input type="file" id="tcl" name="file" multiple onchange="handleFiles(this.files)"><br/>
 			<input type="button" value="上传文件" onclick="uploadFile();">
 			<div id="preview"></div>

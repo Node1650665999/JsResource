@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function()
+			{
+				var detachedNodes;
+				
+				function create() {
+				  var ul = document.createElement('ul');
+				  for (var i = 0; i < 10; i++) {
+				    var li = document.createElement('li');
+				    ul.appendChild(li);
+				  }
+				  detachedTree = ul;
+				}
+				
+				document.getElementById('create').addEventListener('click', create);
+			}
+		</script>
+	</head>
+	<body>
+		<button id="create">take Heap Snapshot</button>
+	</body>
+</html>
+
+<!--
+	class filter::Detached >  黄色高亮节点
+	
+	
+	
+-->

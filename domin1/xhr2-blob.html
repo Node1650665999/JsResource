@@ -11,9 +11,21 @@ function downloadPic(){
     xhr.responseType = 'blob';
     xhr.onload = function(e) {
         if (this.status == 200) {
-            var bb = new Blob([this.response]);  //blob创建一个二进制数据,参数可以是arraybuffer，string,blob,
+        	/*
+        	var result=document.getElementById("result");
+			var img = document.createElement('img');
+        	img.src = this.response;
+        	document.body.appendChild(img); 
+        	*/
+        	
+        	
+            var file = new Blob([this.response]);  //blob创建一个二进制数据,参数可以是arraybuffer,BinaryString,blob,
+            
+        	console.log(this.response);
+            console.log(file);
+            
             var reader = new FileReader();
-            reader.readAsDataURL(bb);   //file对象继承了blob对象,这里也可以是个file对象
+            reader.readAsDataURL(file);   //file对象继承了blob对象,这里也可以是个file对象
             reader.onload = function(f)
             {
                 var result=document.getElementById("result");

@@ -24,35 +24,8 @@
 		e.preventDefault(); // prevent navigation to "#"
 	}, false);
 
-	//FileReader
-//	function handleFiles(files) {
-//		for(var i = 0; i < files.length; i++) {
-//			var file = files[i];
-//			var imageType = /^image\//;
-//
-//			if(!imageType.test(file.type)) {
-//				continue;
-//			}
-//
-//			var img = document.createElement("img");
-//			img.classList.add("obj");
-//			img.file = file;
-//			// 假设 "preview" 是将要展示图片的 div
-//			var preview = document.getElementById("preview");
-//			preview.appendChild(img);
-//			
-//			// 核心对象
-//			var reader = new FileReader();
-//			reader.onload = (function(aImg) {
-//				return function(e) {
-//					aImg.src = e.target.result;   // base64的编码格式  data:image/jpeg;base64,......
-//				};
-//			})(img);
-//			reader.readAsDataURL(file);
-//		}
-//	}
 	
-	//对象对象Url
+	//ObjectUrl
 	function handleFiles(files) {
 		var preview = document.getElementById("preview");
 		  if (!files.length) {
@@ -71,9 +44,9 @@
 		      }
 		      li.appendChild(img);
 		      
-		      var info = document.createElement("span");
+		      /*var info = document.createElement("span");
 		      info.innerHTML = files[i].name + "： " + files[i].size + " bytes";
-		      li.appendChild(info);
+		      li.appendChild(info);*/
 		    }
 		    preview.appendChild(list);
 		  }

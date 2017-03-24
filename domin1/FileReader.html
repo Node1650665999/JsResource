@@ -22,6 +22,9 @@ function readAsDataURL()
         alert("请确保文件为图像类型");
         return false;
     }    
+    
+    console.log(file);
+    
     var reader = new FileReader();
     //将文件以Data URL形式进行读入页面
     reader.readAsDataURL(file);
@@ -60,6 +63,9 @@ function readAsText()
         result.innerHTML=this.result;
     }
 }
+
+
+
 </script>
 <p>
     <label>请选择一个文件：</label>
