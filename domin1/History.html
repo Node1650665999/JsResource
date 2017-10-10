@@ -4,31 +4,37 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<base href="domin1">
 		<script type="text/javascript">
 		window.onload = function(){
-			window.onpopstate = function(event) {
-//				alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
-				document.getElementById("content").innerHTML = "location: " + document.location + ", state: " + JSON.stringify(event.state);
-				console.log(history);
+
+
+		    //当url发生变化时会触发该事件
+		    window.onpopstate = function(event) {
+				 console.log(JSON.stringify(event.state));
+				 console.log(location.href);
 			};
 
-//			history.replaceState({
-//				page: 0
-//			}, "title 0","?page=0");
-			history.pushState({
-				page: 0
-			}, "title 0","?page=0");
-			
-//			history.pushState({
-//				page: 1
-//			}, "title 1", "?page=1");
-//			history.pushState({
-//				page: 2
-//			}, "title 2", "?page=2");
-//			history.pushState({
-//				page: 3
-//			}, "title 3", "?page=3");
-			document.getElementById("btn").onclick = function(){
+			//replaceState
+            /*history.replaceState({
+                page: 0
+            }, "title 0","?page=0");*/
+
+
+			//pushState
+            for(var i=0; i < 5; i++)
+            {
+                history.pushState({
+                    page: i
+                }, "title 0","?page="+i);
+            }
+            /*history.pushState({
+                page: 0
+            }, "title 0","?page=10");*/
+
+
+            //浏览器进行导航
+            document.getElementById("btn").onclick = function(){
 				history.go(-2);
 			}
 //			history.back(); // alerts "location: http://example.com/example.html?page=1, state: {"page":1}"
@@ -39,7 +45,8 @@
 	</head>
 
 	<body>
-		<a href="http://www.baidu.com">sadasd</a>
+		<!--<a href="http://www.baidu.com">sadasd</a>-->
+		<a href="/goods/list">sadasd</a>
 		<button id="btn">回退</button>
 		<div id="content">
 			

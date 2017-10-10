@@ -6,6 +6,6 @@ $arr = ['name' => 'tcl' , 'age' => 25, 'state' => 1];
 //echo "data:服务器端当前时间:".date('Y/m/d H:i:s')."\n\n";  // 数据格式必须为 data: str 这种格式
 echo "data:".json_encode($arr)."\n\n";  // 数据格式必须为 data: str 这种格式
 sleep(3);  //延缓5秒执行
-//echo 'retry : 5000\n\n' ; 
+//echo 'retry : 5000\n\n' ;
 flush();
 ?>

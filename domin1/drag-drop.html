@@ -44,7 +44,7 @@
               
               reader.onload = function (e) {
                 var img = doc.createElement('img');
-                img.src = e.target.result;
+                img.src = this.result;
                 var li = doc.createElement('li');
                 li.appendChild(img);
                 preview.appendChild(li);

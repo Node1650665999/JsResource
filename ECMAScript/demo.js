@@ -90,7 +90,7 @@
 	//ES6 规定，var 命令和 function 命令声明的全局变量，属于全局对象的属性；
 	//let 命令、const 命令、class 命令声明的全局变量，不属于全局对象的属性。
 		/*var a = 1;
-		console.log(window.a);  //undefined
+		console.log(window.a);  //1
 		let b = 1;
 		console.log(window.b);  //undefined*/
 	
@@ -154,7 +154,8 @@
 	//	模板字符串中嵌入变量和函数，需要将变量名和函数调用写在${}之中。
 	/*	var user = {name : 'asd'};
 		function test(){return 123};
-		console.log("name is " + user.name, `name is ${user.name}`, `func is ${test()}`); //name is asd name is asd
+		console.log("name is " + user.name, `name is ${user.name}`, `func is ${test()}`); 
+		//name is asd name is asd
 	//String.raw 方法，往往用来充当模板字符串的处理函数,也可以作为正常的函数使用。这时，它的第一个参数，应该是一个具有 raw 属性的对象
 		console.log(String.raw`Hi\n${2+3}!`);
 		console.log(String.raw({ raw: 'test' }, 0, 1, 2));*/
