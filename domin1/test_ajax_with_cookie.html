@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<!--ajax方式实现cookie植入-->
+
+    <script type="application/javascript">
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                 console.log(this.responseText);
+            }
+        });
+        xhr.open("GET", "http://domin1.com/test_set_cookie.php");
+        xhr.send();
+    </script>
+
+
+    <!--测试cookie是否种入成功-->
+    <!--<a href="http://domin1.com/test_get_cookie.php"  id="test">跳转</a>-->
+
+    <!--jsonp的方式实现cookie植入-->
+    <!--<script  src="http://domin1.com/test_set_cookie.php"></script>-->
+
+
+
+
+
+<body>
+
+</body>
+</html>
